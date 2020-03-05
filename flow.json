@@ -1,73 +1,17 @@
 [
     {
-        "id": "13d7366f.81b80a",
+        "id": "2a9757da.00a358",
         "type": "tab",
         "label": "SensorTag WiFi",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "b40f0c32.5634a",
+        "id": "76259739.2b009",
         "type": "tab",
         "label": "SmartPlug",
         "disabled": false,
         "info": ""
-    },
-    {
-        "id": "c954424d.5def8",
-        "type": "smartplug-device",
-        "z": "",
-        "name": "",
-        "host": "192.168.1.43",
-        "timeout": "10",
-        "heartbeat": "5"
-    },
-    {
-        "id": "315d82c.e4d72fe",
-        "type": "smartplug-device",
-        "z": "",
-        "name": "",
-        "host": "192.168.1.43",
-        "timeout": "10",
-        "heartbeat": "5"
-    },
-    {
-        "id": "cdbe536d.9b64c8",
-        "type": "ui_group",
-        "z": "",
-        "name": "SmartPlug Switch",
-        "tab": "3a671dc8.befcba",
-        "order": 1,
-        "disp": true,
-        "width": "4"
-    },
-    {
-        "id": "d1733240.037ee8",
-        "type": "ui_group",
-        "z": "",
-        "name": "SmartPlug Power Usage Chart",
-        "tab": "3a671dc8.befcba",
-        "order": 2,
-        "disp": true,
-        "width": "8"
-    },
-    {
-        "id": "ea393c51.b805c",
-        "type": "ui_group",
-        "z": "",
-        "name": "SmartPlug Current Usage Chart",
-        "tab": "3a671dc8.befcba",
-        "order": 3,
-        "disp": true,
-        "width": "8"
-    },
-    {
-        "id": "3a671dc8.befcba",
-        "type": "ui_tab",
-        "z": "",
-        "name": "SmartPlug",
-        "icon": "dashboard",
-        "order": 1
     },
     {
         "id": "9db9679f.43f6b8",
@@ -138,6 +82,12 @@
                 "base-font": {
                     "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
                 }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
             }
         },
         "site": {
@@ -158,27 +108,67 @@
         }
     },
     {
-        "id": "e938ca7a.cd34c8",
+        "id": "1b227b5c.bfe23d",
+        "type": "ui_group",
+        "z": "",
+        "name": "SmartPlug Switch",
+        "tab": "d237a06d.7b85",
+        "order": 1,
+        "disp": true,
+        "width": "4"
+    },
+    {
+        "id": "f809ef74.a1c1b",
+        "type": "ui_group",
+        "z": "",
+        "name": "SmartPlug Power Usage Chart",
+        "tab": "d237a06d.7b85",
+        "order": 2,
+        "disp": true,
+        "width": "8"
+    },
+    {
+        "id": "80f4c6a4.b4b338",
+        "type": "ui_group",
+        "z": "",
+        "name": "SmartPlug Current Usage Chart",
+        "tab": "d237a06d.7b85",
+        "order": 3,
+        "disp": true,
+        "width": "8"
+    },
+    {
+        "id": "d237a06d.7b85",
+        "type": "ui_tab",
+        "z": "",
+        "name": "SmartPlug",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "5980bd4a.72497c",
         "type": "http request",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "method": "GET",
         "ret": "txt",
-        "url": "http://192.168.1.44/param_sensortag_poll.html",
+        "paytoqs": false,
+        "url": "http://192.168.1.xxx/param_sensortag_poll.html",
         "tls": "",
+        "proxy": "",
         "x": 270,
         "y": 160,
         "wires": [
             [
-                "c6bbfc02.382508",
-                "d8b7e351.daa708"
+                "f7d6af85.345c6",
+                "d9fd79dd.8dd0c"
             ]
         ]
     },
     {
-        "id": "47465d95.25dbec",
+        "id": "44aa7a87.723cac",
         "type": "inject",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "topic": "",
         "payload": "true",
@@ -190,67 +180,67 @@
         "y": 160,
         "wires": [
             [
-                "e938ca7a.cd34c8"
+                "5980bd4a.72497c"
             ]
         ]
     },
     {
-        "id": "9cdb52a4.f4e65",
+        "id": "3effa246.2a9b76",
         "type": "debug",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "active": true,
         "console": "false",
         "complete": "false",
         "x": 410,
-        "y": 240,
+        "y": 280,
         "wires": []
     },
     {
-        "id": "902367ea.4f7c4",
+        "id": "39734624.9e327a",
         "type": "function",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Extract SensorTag data",
-        "func": "var sensortagdata = msg.payload.split(/\\r?\\n/);\nvar temperature = -1;\nvar lux = -1;\nfor( i=0; i < sensortagdata.length; i++ ) {\n    if( sensortagdata[i].indexOf(\"tmp\") >=0 ) {\n        // Get the Temperature\n        // \"<p id=\"tmp\">09C8 1170 19.56 34.88</p>\"\n        // Grab the 4th substring\n        var t = sensortagdata[i].split(\" \");\n        temperature = parseInt( t[4].substring(0,4) );\n    } else if (sensortagdata[i].indexOf(\"opt\") >=0 ) {\n        // Get the Light lux\n        // <p id=\"opt\">2E9B 149.56</p>\n        // Grab the 4th substring\n        var l = sensortagdata[i].split(\" \");\n        var n = l[2].indexOf(\"<\");\n        lux = parseInt( l[2].substring(0,n-1) );\n    }\n}\nmsg.payload = { \"temperature\": temperature, \"lux\": lux} ;\nreturn msg;",
+        "func": "var sensortagdata = msg.payload.split(/\\r?\\n/);\nvar temperature = -1;\nvar lux = -1;\nvar bar ;\nvar hum ;\nvar gyr = {};\nvar acc = {};\nvar mag = {};\n\nfor( i=0; i < sensortagdata.length; i++ ) {\n    if( sensortagdata[i].indexOf(\"tmp\") >=0 ) {\n        // Get the Temperature\n        // \"<p id=\"tmp\">09C8 1170 19.56 34.88</p>\"\n        // Grab the 4th substring\n        var t = sensortagdata[i].split(\" \");\n        //temperature = parseInt( t[4].substring(0,4) );\n        temperature = parseFloat( t[4] );\n    } else if (sensortagdata[i].indexOf(\"hum\") >=0 ) {\n        // Get the humidity\n        //  <p id=\"hum\">57D8 7558 34.31 35.63</p>\n        // Grab the 4th substring\n        var h = sensortagdata[i].split(\" \");\n        hum = parseFloat( h[4] );\n    } else if (sensortagdata[i].indexOf(\"opt\") >=0 ) {\n        // Get the Light lux\n        // <p id=\"opt\">2E9B 149.56</p>\n        // Grab the 3nd substring\n        var l = sensortagdata[i].split(\" \");\n        var n = l[2].indexOf(\"<\");\n        lux = parseInt( l[2].substring(0,n-1) );\n    } else if (sensortagdata[i].indexOf(\"gyr\") >=0 ) {\n        // Get the gyroscope data\n        // <p id=\"gyr\">FEFE 000C FFA1 -1.97 0.09 -0.73</p>\n        var g = sensortagdata[i].split(\" \");\n        gyr.x = parseFloat( g[4] );\n        gyr.y = parseFloat( g[5] );\n        gyr.z = parseFloat( g[6] );\n    } else if (sensortagdata[i].indexOf(\"acc\") >=0 ) {\n        // Get the Accelerometer data\n        // <p id=\"acc\">000C 0144 EEED 0.00 0.08 -1.07</p>\n        var a = sensortagdata[i].split(\" \");\n        acc.x = parseFloat( a[4] );\n        acc.y = parseFloat( a[5] );\n        acc.z = parseFloat( a[6] );\n    } else if (sensortagdata[i].indexOf(\"mag\") >=0 ) {\n        // Get the magnetometer data\n        // <p id=\"mag\">FF14 FFD7 FDB2 -236 -41 -590</p>\n        var m = sensortagdata[i].split(\" \");\n        mag.x = parseFloat( m[4] );\n        mag.y = parseFloat( m[5] );\n        mag.z = parseFloat( m[6] );\n    } else if (sensortagdata[i].indexOf(\"bar\") >=0 ) {\n        // Get the Barometer data\n        // <p id=\"bar\">564860 86B200 36.10 1016.34</p>\n        // Grab the 5th substring\n        var b = sensortagdata[i].split(\" \");\n        bar = parseFloat( b[4] );\n    }\n}\nmsg.payload = { \"temperature\": temperature, \n                \"lux\"        : lux,\n                \"humidity\"   : hum,\n                \"barometer\"  : bar,\n                \"gyroscope\"  : gyr,\n                \"accelometer\" : acc,\n                \"magnetometer\": mag\n} ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 170,
         "y": 320,
         "wires": [
             [
-                "9cdb52a4.f4e65",
-                "1680625f.936d86",
-                "2b95f386.e5576c",
-                "93db9712.23cff8"
+                "3effa246.2a9b76",
+                "4cd35186.d23008",
+                "c0e83223.d815e",
+                "332a03f5.08e634"
             ]
         ]
     },
     {
-        "id": "c1447e79.f64728",
+        "id": "64086ba7.aac58c",
         "type": "comment",
-        "z": "13d7366f.81b80a",
-        "name": "http://192.168.1.44/sensortag.html",
+        "z": "2a9757da.00a358",
+        "name": "http://192.168.1.x/sensortag.html",
         "info": "",
-        "x": 170,
-        "y": 80,
+        "x": 150,
+        "y": 60,
         "wires": []
     },
     {
-        "id": "3dbde2e4.2f676e",
+        "id": "c5ef53c.21151b",
         "type": "comment",
-        "z": "13d7366f.81b80a",
-        "name": "http://192.168.1.44/param_sensortag_poll.html",
+        "z": "2a9757da.00a358",
+        "name": "http://192.168.1.x/param_sensortag_poll.html",
         "info": "",
-        "x": 210,
-        "y": 120,
+        "x": 190,
+        "y": 100,
         "wires": []
     },
     {
-        "id": "c6bbfc02.382508",
+        "id": "f7d6af85.345c6",
         "type": "debug",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "true",
         "x": 470,
@@ -258,9 +248,9 @@
         "wires": []
     },
     {
-        "id": "1680625f.936d86",
+        "id": "4cd35186.d23008",
         "type": "switch",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Lights on?",
         "property": "payload.lux",
         "propertyType": "msg",
@@ -280,17 +270,17 @@
         "y": 400,
         "wires": [
             [
-                "4a5dac56.d76184"
+                "11529d8e.9b8682"
             ],
             [
-                "4cc9482f.ec7d48"
+                "9dbfce0c.813c8"
             ]
         ]
     },
     {
-        "id": "4a5dac56.d76184",
+        "id": "11529d8e.9b8682",
         "type": "switch",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "What's the temp",
         "property": "payload.temperature",
         "propertyType": "msg",
@@ -310,17 +300,17 @@
         "y": 360,
         "wires": [
             [
-                "8f048c94.f23588"
+                "54511011.7fa668"
             ],
             [
-                "4cc9482f.ec7d48"
+                "9dbfce0c.813c8"
             ]
         ]
     },
     {
-        "id": "21e7bd2e.e3c832",
+        "id": "4736031.06240fc",
         "type": "comment",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Light is on, temp is cool",
         "info": "",
         "x": 840,
@@ -328,9 +318,9 @@
         "wires": []
     },
     {
-        "id": "2c130b2.a3062f4",
+        "id": "201aa5fe.f9bac2",
         "type": "debug",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Heater Status",
         "active": true,
         "console": "false",
@@ -340,12 +330,12 @@
         "wires": []
     },
     {
-        "id": "37564cfa.676794",
+        "id": "c1053a96.7f99d8",
         "type": "smartplug-out",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "topic": "",
-        "device": "c954424d.5def8",
+        "device": "3d0507df.842c58",
         "response": true,
         "x": 1030,
         "y": 400,
@@ -354,9 +344,9 @@
         ]
     },
     {
-        "id": "4cc9482f.ec7d48",
+        "id": "9dbfce0c.813c8",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Heat Off",
         "rules": [
             {
@@ -376,15 +366,15 @@
         "y": 400,
         "wires": [
             [
-                "37564cfa.676794",
-                "2c130b2.a3062f4"
+                "c1053a96.7f99d8",
+                "201aa5fe.f9bac2"
             ]
         ]
     },
     {
-        "id": "8f048c94.f23588",
+        "id": "54511011.7fa668",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Heat On",
         "rules": [
             {
@@ -404,15 +394,15 @@
         "y": 360,
         "wires": [
             [
-                "37564cfa.676794",
-                "2c130b2.a3062f4"
+                "c1053a96.7f99d8",
+                "201aa5fe.f9bac2"
             ]
         ]
     },
     {
-        "id": "8ffd692d.84f1e",
+        "id": "8f3610f8.e13dc",
         "type": "inject",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Override",
         "topic": "",
         "payload": "false",
@@ -424,58 +414,58 @@
         "y": 440,
         "wires": [
             [
-                "4cc9482f.ec7d48"
+                "9dbfce0c.813c8"
             ]
         ]
     },
     {
-        "id": "9630baf4.691e98",
+        "id": "232efc19.94d184",
         "type": "smartplug-in",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
         "topic": "",
-        "device": "315d82c.e4d72fe",
+        "device": "3d0507df.842c58",
         "interval": "10000",
         "deviceinfo": true,
         "schedule": true,
         "status": {
+            "text": "connected",
             "fill": "green",
-            "shape": "dot",
-            "text": "connected"
+            "shape": "dot"
         },
         "cost": true,
         "costFactor": 0.2,
         "costUnit": "$",
-        "x": 120,
+        "x": 110,
         "y": 100,
         "wires": [
             [
-                "54de9273.0b74b4",
-                "d8293d52.e7988",
-                "de66e99c.adab78"
+                "ea34cb47.e7527",
+                "770323b5.2d313c",
+                "9867d0e3.ffdd8"
             ]
         ]
     },
     {
-        "id": "67c9a94c.5cfe9",
+        "id": "1807c7e1.fde698",
         "type": "smartplug-out",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
         "topic": "",
-        "device": "315d82c.e4d72fe",
+        "device": "3d0507df.842c58",
         "response": true,
         "x": 330,
         "y": 240,
         "wires": [
             [
-                "329880bd.a430e"
+                "1aa6c9e6.6ca4a6"
             ]
         ]
     },
     {
-        "id": "54de9273.0b74b4",
+        "id": "ea34cb47.e7527",
         "type": "debug",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
         "active": false,
         "console": "false",
@@ -485,9 +475,9 @@
         "wires": []
     },
     {
-        "id": "446d8393.0d6f74",
+        "id": "2cce57a.528f5a8",
         "type": "inject",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "On",
         "topic": "",
         "payload": "true",
@@ -499,14 +489,14 @@
         "y": 200,
         "wires": [
             [
-                "67c9a94c.5cfe9"
+                "1807c7e1.fde698"
             ]
         ]
     },
     {
-        "id": "3d657775.504ec8",
+        "id": "79999de0.3dcea4",
         "type": "inject",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "Off",
         "topic": "",
         "payload": "false",
@@ -518,17 +508,17 @@
         "y": 240,
         "wires": [
             [
-                "67c9a94c.5cfe9"
+                "1807c7e1.fde698"
             ]
         ]
     },
     {
-        "id": "c6161ab7.e764a",
+        "id": "b4112037.b56f88",
         "type": "ui_switch",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
         "label": "On/Off",
-        "group": "cdbe536d.9b64c8",
+        "group": "1b227b5c.bfe23d",
         "order": 1,
         "width": 0,
         "height": 0,
@@ -548,17 +538,17 @@
         "y": 280,
         "wires": [
             [
-                "67c9a94c.5cfe9"
+                "1807c7e1.fde698"
             ]
         ]
     },
     {
-        "id": "d795c7e2.e552a",
+        "id": "29b26dcf.3afeda",
         "type": "ui_chart",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
-        "group": "d1733240.037ee8",
-        "order": 0,
+        "group": "f809ef74.a1c1b",
+        "order": 1,
         "width": 0,
         "height": 0,
         "label": "Power Consumption",
@@ -587,7 +577,8 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 550,
+        "outputs": 2,
+        "x": 560,
         "y": 100,
         "wires": [
             [],
@@ -595,9 +586,9 @@
         ]
     },
     {
-        "id": "de66e99c.adab78",
+        "id": "9867d0e3.ffdd8",
         "type": "change",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "Extract Current",
         "rules": [
             {
@@ -624,15 +615,15 @@
         "y": 140,
         "wires": [
             [
-                "3174ba28.a3bbbe",
-                "b33ba90c.967608"
+                "6a72fb4a.7002f4",
+                "bf331ae8.7acd08"
             ]
         ]
     },
     {
-        "id": "d8293d52.e7988",
+        "id": "770323b5.2d313c",
         "type": "change",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "Extract Power",
         "rules": [
             {
@@ -659,16 +650,16 @@
         "y": 100,
         "wires": [
             [
-                "d795c7e2.e552a"
+                "29b26dcf.3afeda"
             ]
         ]
     },
     {
-        "id": "3174ba28.a3bbbe",
+        "id": "6a72fb4a.7002f4",
         "type": "ui_chart",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
-        "group": "ea393c51.b805c",
+        "group": "80f4c6a4.b4b338",
         "order": 0,
         "width": 0,
         "height": 0,
@@ -698,6 +689,7 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
+        "outputs": 2,
         "x": 540,
         "y": 140,
         "wires": [
@@ -706,11 +698,11 @@
         ]
     },
     {
-        "id": "b33ba90c.967608",
+        "id": "bf331ae8.7acd08",
         "type": "ui_gauge",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
-        "group": "ea393c51.b805c",
+        "group": "80f4c6a4.b4b338",
         "order": 0,
         "width": 0,
         "height": 0,
@@ -732,31 +724,31 @@
         "wires": []
     },
     {
-        "id": "4ddccc15.cced0c",
+        "id": "2f2eca1c.c83496",
         "type": "comment",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "How To",
-        "info": "username is admin\n\nInstall the Android/iOS app \nhttps://play.google.com/store/apps/details?id=com.edimax.smartplugin&hl=en\n\n$28 EdiMax WiFi enabled smartplug :\nhttp://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/home_automation_smart_plug/sp-2101w/\n\nNode package that allows it to be discovered and controlled over WiFi\nhttps://github.com/mwittig/edimax-smartplug\n\nNode-RED node that can be integrated into our flows.\nhttps://flows.nodered.org/node/node-red-contrib-smartplug ",
+        "info": "username is admin\npassword is 1234\n\nInstall the Android/iOS app \nhttps://play.google.com/store/apps/details?id=com.edimax.smartplugin&hl=en\n\n$28 EdiMax WiFi enabled smartplug :\nhttp://www.edimax.com/edimax/merchandise/merchandise_detail/data/edimax/global/home_automation_smart_plug/sp-2101w/\n\nNode package that allows it to be discovered and controlled over WiFi\nhttps://github.com/mwittig/edimax-smartplug\n\nNode-RED node that can be integrated into our flows.\nhttps://flows.nodered.org/node/node-red-contrib-smartplug ",
         "x": 90,
         "y": 40,
         "wires": []
     },
     {
-        "id": "329880bd.a430e",
+        "id": "1aa6c9e6.6ca4a6",
         "type": "debug",
-        "z": "b40f0c32.5634a",
+        "z": "76259739.2b009",
         "name": "",
         "active": true,
         "console": "false",
         "complete": "false",
-        "x": 540,
+        "x": 530,
         "y": 240,
         "wires": []
     },
     {
-        "id": "d8b7e351.daa708",
+        "id": "d9fd79dd.8dd0c",
         "type": "switch",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Fail on Error",
         "property": "payload",
         "propertyType": "msg",
@@ -777,14 +769,14 @@
         "wires": [
             [],
             [
-                "902367ea.4f7c4"
+                "39734624.9e327a"
             ]
         ]
     },
     {
-        "id": "2b95f386.e5576c",
+        "id": "c0e83223.d815e",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "SensorTag Temp",
         "rules": [
             {
@@ -804,15 +796,16 @@
         "y": 320,
         "wires": [
             [
-                "1d3dc930.d47447"
+                "f659bd43.4365a",
+                "802cc3da.8124"
             ]
         ]
     },
     {
-        "id": "1d3dc930.d47447",
+        "id": "f659bd43.4365a",
         "type": "ui_text",
-        "z": "13d7366f.81b80a",
-        "group": "cdbe536d.9b64c8",
+        "z": "2a9757da.00a358",
+        "group": "1b227b5c.bfe23d",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -820,17 +813,17 @@
         "label": "Current Temp",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 620,
+        "x": 640,
         "y": 320,
         "wires": []
     },
     {
-        "id": "1a66f3fc.0c18dc",
+        "id": "3e43f0c4.5e96e8",
         "type": "ui_slider",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "label": "Set Temp",
-        "group": "cdbe536d.9b64c8",
+        "group": "1b227b5c.bfe23d",
         "order": 4,
         "width": 0,
         "height": 0,
@@ -843,16 +836,16 @@
         "y": 580,
         "wires": [
             [
-                "2bf21e69.03a8e2",
-                "a29adac.f932228",
-                "8a5d9824.f994e8"
+                "a3571bf7.6401f8",
+                "88f6c605.e1b608",
+                "1d26e22a.08ac86"
             ]
         ]
     },
     {
-        "id": "2bf21e69.03a8e2",
+        "id": "a3571bf7.6401f8",
         "type": "debug",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "active": true,
         "console": "false",
@@ -862,9 +855,9 @@
         "wires": []
     },
     {
-        "id": "a29adac.f932228",
+        "id": "88f6c605.e1b608",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "rules": [
             {
@@ -887,16 +880,16 @@
         ]
     },
     {
-        "id": "f580fe7a.f2d968",
+        "id": "d9b7b1be.0bd48",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "35",
+                "to": "31",
                 "tot": "num"
             }
         ],
@@ -909,14 +902,14 @@
         "y": 580,
         "wires": [
             [
-                "1a66f3fc.0c18dc"
+                "3e43f0c4.5e96e8"
             ]
         ]
     },
     {
-        "id": "d12f865f.0e317",
+        "id": "51ee8750.4cf26",
         "type": "inject",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "Startup",
         "topic": "",
         "payload": "true",
@@ -928,15 +921,15 @@
         "y": 580,
         "wires": [
             [
-                "f580fe7a.f2d968"
+                "d9b7b1be.0bd48"
             ]
         ]
     },
     {
-        "id": "8a5d9824.f994e8",
+        "id": "1d26e22a.08ac86",
         "type": "ui_text",
-        "z": "13d7366f.81b80a",
-        "group": "cdbe536d.9b64c8",
+        "z": "2a9757da.00a358",
+        "group": "1b227b5c.bfe23d",
         "order": 3,
         "width": 0,
         "height": 0,
@@ -949,9 +942,9 @@
         "wires": []
     },
     {
-        "id": "93db9712.23cff8",
+        "id": "332a03f5.08e634",
         "type": "change",
-        "z": "13d7366f.81b80a",
+        "z": "2a9757da.00a358",
         "name": "SensorTag Lux",
         "rules": [
             {
@@ -968,18 +961,18 @@
         "to": "",
         "reg": false,
         "x": 420,
-        "y": 280,
+        "y": 240,
         "wires": [
             [
-                "b68968d1.93f7c8"
+                "2af2affc.c82028"
             ]
         ]
     },
     {
-        "id": "b68968d1.93f7c8",
+        "id": "2af2affc.c82028",
         "type": "ui_text",
-        "z": "13d7366f.81b80a",
-        "group": "cdbe536d.9b64c8",
+        "z": "2a9757da.00a358",
+        "group": "1b227b5c.bfe23d",
         "order": 0,
         "width": 0,
         "height": 0,
@@ -987,8 +980,51 @@
         "label": "Light",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": 590,
-        "y": 280,
+        "x": 610,
+        "y": 240,
         "wires": []
+    },
+    {
+        "id": "802cc3da.8124",
+        "type": "ui_chart",
+        "z": "2a9757da.00a358",
+        "name": "",
+        "group": "f809ef74.a1c1b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "Temperature History",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "40",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 2,
+        "x": 660,
+        "y": 280,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]
